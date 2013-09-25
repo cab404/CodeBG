@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:orientation="vertical" android:background="#000000FF" android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/linearLayout1">
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                  android:gravity="center" android:id="@+id/linearLayout2">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/speed_label" android:id="@+id/cfg_speed_title" android:paddingRight="5dp"
+                  android:textStyle="bold"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""
+                  android:id="@+id/cfg_speed_value" android:paddingRight="5dp"/>
+        <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content"
+                 android:id="@+id/cfg_speed_peeker" android:layout_gravity="center|right"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                  android:gravity="center">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/height_label" android:id="@+id/cfg_height_title" android:paddingRight="5dp"
+                  android:textStyle="bold"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""
+                  android:id="@+id/cfg_height_value" android:paddingRight="5dp"/>
+        <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content"
+                 android:id="@+id/cfg_height_peeker" android:layout_gravity="center|right"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                  android:id="@+id/linearLayout" android:gravity="center">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/by_line_label" android:id="@+id/cfg_by_line_title" android:paddingRight="5dp"
+                  android:textStyle="bold"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""
+                  android:id="@+id/cfg_by_line_value" android:paddingRight="5dp"/>
+        <Switch android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/cfg_by_line_peeker" android:singleLine="true"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:gravity="center">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/text_size" android:id="@+id/cfg_text_size_title" android:paddingRight="5dp"
+                  android:textStyle="bold"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""
+                  android:id="@+id/cfg_text_size_value" android:paddingRight="5dp"/>
+        <SeekBar
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cfg_text_size_peeker" android:layout_gravity="center" android:indeterminate="false"/>
+    </LinearLayout>
+    <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/colors"/>
+</LinearLayout>
