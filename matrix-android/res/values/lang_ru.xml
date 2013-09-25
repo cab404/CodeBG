@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">code.gen();</string>
+    <string name="settings">com.cab404.matrix.SettingsActivity</string>
+
+    <string name="description">Заставка с процедурно-генерируемым кодом.</string>
+    <string name="height_label">Высота видимого текста</string>
+    <string name="speed_label">Скорость</string>
+    <string name="by_line_label">Добавлять строку сразу</string>
+    <string name="text_size">Размер текста</string>
+
+    <string-array name="colors">
+        <item>Фон</item>
+        <item>Функции</item>
+        <item>Знаки</item>
+        <item>Строки</item>
+        <item>Переменные</item>
+        <item>Числа</item>
+        <item>Ключевые слова</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:layout_gravity="center" xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/linearLayout2">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_gravity="center_horizontal">
+        <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:id="@+id/color_display" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="New Text"
+                  android:id="@+id/color_title" android:layout_gravity="center" android:textStyle="bold"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+        <TextView android:layout_width="60dp" android:layout_height="wrap_content"
+                  android:id="@+id/color_r_title" android:layout_gravity="center_vertical" android:paddingLeft="4dp"
+                  android:paddingRight="8dp"/>
+        <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/color_r"
+                 android:indeterminate="false" android:max="255"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="fill_parent" android:id="@+id/linearLayout">
+        <TextView android:layout_width="60dp" android:layout_height="wrap_content"
+                  android:id="@+id/color_g_title" android:layout_gravity="center_vertical" android:paddingLeft="4dp"
+                  android:paddingRight="8dp"/>
+        <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/color_g"
+                 android:indeterminate="false" android:max="255"
+                />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="fill_parent" android:id="@+id/linearLayout1">
+        <TextView android:layout_width="60dp" android:layout_height="wrap_content"
+                  android:id="@+id/color_b_title" android:layout_gravity="center_vertical" android:paddingLeft="4dp"
+                  android:paddingRight="8dp"/>
+        <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/color_b"
+                 android:indeterminate="false" android:max="255"/>
+    </LinearLayout>
+</LinearLayout>
