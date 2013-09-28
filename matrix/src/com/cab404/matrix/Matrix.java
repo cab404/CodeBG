@@ -34,59 +34,57 @@ public class Matrix implements ApplicationListener {
     @Override
     public void create() {
         Settings.read();
+
         lines = new Array<>();
         code = new CodeCreator();
 
         FileHandle font_file = Gdx.files.internal("data/SourceCodePro-Regular.ttf");
         gen = new FreeTypeFontGenerator(font_file);
 
-        def_font = gen.generateFont(Settings.font_size, chars, false);
-        def_font.setUseIntegerPositions(true);
+        genFonts();
 
-        fontHeight = (int) def_font.getLineHeight();
         batch = new SpriteBatch();
     }
 
     @Override
     public void dispose() {
-        batch.dispose();
         def_font.dispose();
+        batch.dispose();
+        lines.clear();
+        code = null;
         gen.dispose();
+    }
+
+    public void genFonts() {
+        def_font = gen.generateFont(Settings.font_size, chars, false);
+        def_font.setUseIntegerPositions(true);
+        temporary_size = Settings.font_size;
+
+        fontHeight = (int) def_font.getLineHeight();
+        lines_num = h / fontHeight;
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glClearColor(Settings.Color.bg.c.r, Settings.Color.bg.c.g, Settings.Color.bg.c.b, 1);
         update();
 
         if (temporary_size != Settings.font_size) {
-            def_font = gen.generateFont(Settings.font_size, chars, false);
-            def_font.setUseIntegerPositions(true);
-            temporary_size = Settings.font_size;
-
-            fontHeight = (int) def_font.getLineHeight();
-            lines_num = h / fontHeight;
+            genFonts();
         }
 
-        if ((Gdx.graphics.isGL11Available() || isPreview) && !paused) {
-            try {
-                batch.begin();
-                {
-                    while (lines.size > lines_num * Settings.position) {
-                        lines.removeIndex(0);
-                        lines.shrink();
-                    }
-                    for (int i = 0; i != lines.size; i++) {
-                        renderLine(batch, lines.get(i), (int) def_font.getSpaceWidth(), h - fontHeight * i - 2);
-                    }
-                }
-                batch.end();
-            } catch (Throwable e) {
-                Luna.log("What a Terrible Failure! " + e);
-                batch.end();
+        batch.begin();
+        {
+            while (lines.size > lines_num * Settings.position) {
+                lines.removeIndex(0);
+            }
+            lines.shrink();
+            for (int i = 0; i < lines.size; i++) {
+                renderLine(batch, lines.get(i), (int) def_font.getSpaceWidth(), h - fontHeight * i - 2);
             }
         }
+        batch.end();
     }
 
     String typing = "";
@@ -120,14 +118,13 @@ public class Matrix implements ApplicationListener {
 
     @Override
     public void pause() {
-        Luna.log("Paused!");
         paused = true;
     }
 
     @Override
     public void resume() {
-        Luna.log("Resumed!");
         paused = false;
+        resize(w, h);
     }
 
     /**
@@ -139,7 +136,11 @@ public class Matrix implements ApplicationListener {
         int index = 0;
 
         while (index != -1) {
-            def_font.setColor(Settings.Color.sign.c);
+            try {
+                def_font.setColor(Settings.Color.sign.c);
+            } catch (Throwable t) {
+                Luna.log("JaEWC");
+            }
             int new_index = line.indexOf('&', index);
 
             String subline = "";
@@ -158,15 +159,22 @@ public class Matrix implements ApplicationListener {
                 if (new_index < line.length() && end_index != -1)
                     subline_color = line.substring(new_index + 1, end_index);
 
-                def_font.setColor(Settings.Color.valueOf(subline_color + "").c);
+                try {
+                    def_font.setColor(Settings.Color.valueOf(subline_color + "").c);
+                } catch (Throwable t) {
+                    Luna.log("JaEWC");
+                }
 
                 new_index += subline_color.length() + 2;
             }
 
             int width = (int) def_font.getBounds(subline).width;
 
-
-            def_font.draw(batch, subline, x, y);
+            try {
+                def_font.draw(batch, subline, x, y);
+            } catch (Throwable t) {
+                Luna.log("JaEWR");
+            }
 
             x += width;
             index = new_index;

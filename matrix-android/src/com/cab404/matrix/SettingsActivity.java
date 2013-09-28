@@ -74,7 +74,7 @@ public class SettingsActivity extends Activity {
         });
 
         size_peeker.setMax(60 - 4);
-        size_peeker.setProgress(Settings.font_size - 10);
+        size_peeker.setProgress(Settings.font_size - 4);
         size_peeker.setOnSeekBarChangeListener(new onSeekBar() {
             @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Settings.font_size = progress + 4;
@@ -108,7 +108,7 @@ public class SettingsActivity extends Activity {
     }
 
     public void updateText() {
-        speed_value.setText((Settings.speed * 60) + " " + (Settings.byLine ? "лин" : "зн") + "/сек");
+        speed_value.setText((Settings.speed * 60) + " " + (Settings.byLine ? "лин/сек" : "зн/сек"));
         height_value.setText(Settings.position + "/1.0");
         size_value.setText((Settings.font_size) + " px");
         byline_value.setText(Settings.byLine ?
