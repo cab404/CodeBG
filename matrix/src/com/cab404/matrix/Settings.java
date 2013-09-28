@@ -18,9 +18,7 @@ public class Settings {
 
     public static void read() {
         File settings;
-
         settings = new File(local_resolver + "settings.cfg");
-        Luna.log(settings.getAbsolutePath());
 
         if (settings.exists())
             try {
