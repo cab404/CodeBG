@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">code.gen();</string>
+    <string name="app_name">{codeBG}</string>
     <string name="settings">com.cab404.matrix.SettingsActivity</string>
 
     <string name="description">Заставка с процедурно-генерируемым кодом.</string>
