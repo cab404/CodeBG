@@ -3,11 +3,17 @@
     <string name="app_name">{codeBG}</string>
     <string name="settings">com.cab404.matrix.SettingsActivity</string>
 
-    <string name="description">Заставка с процедурно-генерируемым кодом.</string>
+    <string name="description">Заставка с процедурно-генерируемым Java-подобным кодом.</string>
     <string name="height_label">Высота видимого текста</string>
     <string name="speed_label">Скорость</string>
     <string name="by_line_label">Добавлять строку сразу</string>
     <string name="text_size">Размер текста</string>
+
+    <string name="line_by_line">Код выводится построчно.</string>
+    <string name="char_by_char">Код выводится познаково.</string>
+
+    <string name="lps">лин/сек</string>
+    <string name="cps">зн/сек</string>
 
     <string-array name="colors">
         <item>Фон</item>

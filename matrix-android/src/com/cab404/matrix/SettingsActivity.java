@@ -108,12 +108,15 @@ public class SettingsActivity extends Activity {
     }
 
     public void updateText() {
-        speed_value.setText((Settings.speed * 60) + " " + (Settings.byLine ? "лин/сек" : "зн/сек"));
+        speed_value.setText((Settings.speed * 60) + " "
+                + (Settings.byLine ?
+                getResources().getString(R.string.lps) :
+                getResources().getString(R.string.cps)));
         height_value.setText(Settings.position + "/1.0");
         size_value.setText((Settings.font_size) + " px");
         byline_value.setText(Settings.byLine ?
-                "Код выводится построчно." :
-                "Код выводится познаково.");
+                getResources().getString(R.string.line_by_line) :
+                getResources().getString(R.string.char_by_char));
     }
 
     abstract class onSeekBar implements SeekBar.OnSeekBarChangeListener {
