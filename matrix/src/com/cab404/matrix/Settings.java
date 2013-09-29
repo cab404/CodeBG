@@ -72,13 +72,13 @@ public class Settings {
     }
 
     enum Color {
-        bg("2b2b2b", "Фон"),
-        name("ffc66d", "Функции"),
-        sign("a9b7c6", "Знаки"),
-        str("a5c25c", "Строки"),
-        var("9876aa", "Переменные"),
-        num("6897bb", "Числа"),
-        kw("cc7832", "Ключевые слов");
+          bg("001200", "Фон"),
+        name("15a61e", "Функции"),
+        sign("1ec321", "Знаки"),
+         str("1c6d61", "Строки"),
+         var("086110", "Переменные"),
+         num("1e8b21", "Числа"),
+          kw("1ba71c", "Ключевые слов");
 
         public com.badlogic.gdx.graphics.Color c;
         public String label;
