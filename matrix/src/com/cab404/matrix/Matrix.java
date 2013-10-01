@@ -124,6 +124,7 @@ public class Matrix implements ApplicationListener {
     @Override
     public void resume() {
         paused = false;
+        genFonts();
         resize(w, h);
     }
 

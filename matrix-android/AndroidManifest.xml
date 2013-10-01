@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.cab404.matrix"
-          android:versionCode="134133821"
-          android:versionName="7:86a9416d55ce">
+          android:versionCode="134133822"
+          android:versionName="8:cdadfae1b243">
 
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17"/>
     <uses-feature android:required="true" android:name="android.software.live_wallpaper"/>
