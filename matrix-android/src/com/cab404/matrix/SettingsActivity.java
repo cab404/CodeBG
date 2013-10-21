@@ -18,7 +18,7 @@ public class SettingsActivity extends Activity {
             byline_title, byline_value;
     SeekBar
             speed_peeker, height_peeker, size_peeker;
-    Switch
+    ToggleButton
             byline_peeker;
 
     @Override
@@ -51,7 +51,7 @@ public class SettingsActivity extends Activity {
         height_peeker = (SeekBar) head.findViewById(R.id.cfg_height_peeker);
         size_peeker = (SeekBar) head.findViewById(R.id.cfg_text_size_peeker);
 
-        byline_peeker = (Switch) head.findViewById(R.id.cfg_by_line_peeker);
+        byline_peeker = (ToggleButton) head.findViewById(R.id.cfg_by_line_peeker);
 
         speed_peeker.setMax(30);
         speed_peeker.setProgress(Settings.speed);
