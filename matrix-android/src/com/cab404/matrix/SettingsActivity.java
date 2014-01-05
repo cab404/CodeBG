@@ -3,6 +3,9 @@ package com.cab404.matrix;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
@@ -102,7 +105,30 @@ public class SettingsActivity extends Activity {
         ListView colors = (ListView) findViewById(R.id.root_list);
 
         colors.addHeaderView(head);
-        colors.setAdapter(new ColorChooserAdapter());
+        colors.setAdapter(new ColorChooserAdapter() {
+            @Override public void onChange() {
+                updateText();
+            }
+        });
+
+        final EditText seri = (EditText) findViewById(R.id.seri);
+        seri.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+            @Override public void afterTextChanged(Editable editable) {
+                try {
+                    Settings.deserializeSettings(editable.toString());
+                } catch (Exception ex) {
+                    Log.e("Lunalog", "Rec", ex);
+                    seri.setText(Settings.serializeSettings());
+                }
+            }
+        });
+
 
         updateText();
     }
@@ -117,6 +143,9 @@ public class SettingsActivity extends Activity {
         byline_value.setText(Settings.byLine ?
                 getResources().getString(R.string.line_by_line) :
                 getResources().getString(R.string.char_by_char));
+
+        ((TextView) findViewById(R.id.seri)).setText(Settings.serializeSettings());
+
     }
 
     abstract class onSeekBar implements SeekBar.OnSeekBarChangeListener {

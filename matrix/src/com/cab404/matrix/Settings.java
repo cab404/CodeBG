@@ -3,6 +3,8 @@ package com.cab404.matrix;
 import com.badlogic.gdx.Gdx;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -72,13 +74,13 @@ public class Settings {
     }
 
     enum Color {
-          bg("001200", "Фон"),
+        bg("001200", "Фон"),
         name("15a61e", "Функции"),
         sign("1ec321", "Знаки"),
-         str("1c6d61", "Строки"),
-         var("086110", "Переменные"),
-         num("1e8b21", "Числа"),
-          kw("1ba71c", "Ключевые слов");
+        str("1c6d61", "Строки"),
+        var("086110", "Переменные"),
+        num("1e8b21", "Числа"),
+        kw("1ba71c", "Ключевые слов");
 
         public com.badlogic.gdx.graphics.Color c;
         public String label;
@@ -88,5 +90,36 @@ public class Settings {
             c = com.badlogic.gdx.graphics.Color.valueOf(hex);
         }
     }
+
+    public static String serializeSettings() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(speed).append(',');
+        builder.append(position).append(',');
+        builder.append(byLine).append(',');
+        builder.append(font_size).append(',');
+
+        for (Color col : Color.values()) {
+            builder.append(col.c.toString().substring(0, 6)).append(',');
+        }
+
+        builder.deleteCharAt(builder.length() - 1);
+
+        return builder.toString();
+    }
+
+    public static void deserializeSettings(String settings) {
+        List<String> parts = Arrays.asList(settings.split(","));
+
+        speed = Integer.parseInt(parts.get(0));
+        position = Float.parseFloat(parts.get(1));
+        byLine = Boolean.parseBoolean(parts.get(2));
+        font_size = Integer.parseInt(parts.get(3));
+
+        for (int i = 4; i < parts.size(); i++) {
+            Color.values()[i - 4].c = com.badlogic.gdx.graphics.Color.valueOf(parts.get(i));
+        }
+
+    }
+
 }
 
