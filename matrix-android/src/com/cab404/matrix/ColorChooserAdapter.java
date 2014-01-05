@@ -17,7 +17,9 @@ import java.lang.ref.WeakReference;
 /**
  * @author cab404
  */
-public class ColorChooserAdapter extends BaseAdapter {
+public abstract class ColorChooserAdapter extends BaseAdapter {
+
+    public abstract void onChange();
 
     @Override
     public int getCount() {
@@ -41,16 +43,20 @@ public class ColorChooserAdapter extends BaseAdapter {
             convertView = ColorSelector.create(parent);
         }
 
-        return ColorSelector.convert(Settings.Color.values()[i], convertView);
+        return ColorSelector.convert(Settings.Color.values()[i], convertView, new Runnable() {
+            @Override public void run() {
+                onChange();
+            }
+        });
     }
 
-    private static class ColorSelector {
+    private static abstract class ColorSelector {
 
         public static View create(ViewGroup parent) {
             return LayoutInflater.from(parent.getContext()).inflate(R.layout.color, parent, false);
         }
 
-        public static View convert(Settings.Color col, View view) {
+        public static View convert(Settings.Color col, View view, final Runnable onChange) {
             TextView title, r_t, g_t, b_t;
             ImageView display;
             SeekBar r, g, b;
@@ -69,9 +75,21 @@ public class ColorChooserAdapter extends BaseAdapter {
             g = (SeekBar) view.findViewById(R.id.color_g);
             b = (SeekBar) view.findViewById(R.id.color_b);
 
-            r.setOnSeekBarChangeListener(new OnSeek(new WeakReference<>(r_t), new WeakReference<>(display), col, 'r'));
-            g.setOnSeekBarChangeListener(new OnSeek(new WeakReference<>(g_t), new WeakReference<>(display), col, 'g'));
-            b.setOnSeekBarChangeListener(new OnSeek(new WeakReference<>(b_t), new WeakReference<>(display), col, 'b'));
+            r.setOnSeekBarChangeListener(new OnSeek(new WeakReference<>(r_t), new WeakReference<>(display), col, 'r') {
+                @Override public void onChange() {
+                    onChange.run();
+                }
+            });
+            g.setOnSeekBarChangeListener(new OnSeek(new WeakReference<>(g_t), new WeakReference<>(display), col, 'g') {
+                @Override public void onChange() {
+                    onChange.run();
+                }
+            });
+            b.setOnSeekBarChangeListener(new OnSeek(new WeakReference<>(b_t), new WeakReference<>(display), col, 'b') {
+                @Override public void onChange() {
+                    onChange.run();
+                }
+            });
 
             r.setProgress((int) (col.c.r * 255));
             g.setProgress((int) (col.c.g * 255));
@@ -95,15 +113,19 @@ public class ColorChooserAdapter extends BaseAdapter {
             BitmapDrawable disp = new BitmapDrawable(Resources.getSystem(), bitmap);
             display.setImageDrawable(disp);
 
+
             return view;
+
         }
 
 
-        static class OnSeek implements SeekBar.OnSeekBarChangeListener {
+        static abstract class OnSeek implements SeekBar.OnSeekBarChangeListener {
             WeakReference<TextView> title;
             private WeakReference<ImageView> display;
             private Settings.Color color;
             private char element;
+
+            public abstract void onChange();
 
             public OnSeek(WeakReference<TextView> title, WeakReference<ImageView> display, Settings.Color color, char element) {
                 this.title = title;
@@ -142,11 +164,11 @@ public class ColorChooserAdapter extends BaseAdapter {
                 color <<= 8;
                 color |= b;
 
+
                 Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
                 bitmap.setPixel(0, 0, color);
                 BitmapDrawable disp = new BitmapDrawable(Resources.getSystem(), bitmap);
                 display.get().setImageDrawable(disp);
-
             }
 
             @Override
@@ -156,6 +178,7 @@ public class ColorChooserAdapter extends BaseAdapter {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Settings.write();
+                onChange();
             }
         }
     }

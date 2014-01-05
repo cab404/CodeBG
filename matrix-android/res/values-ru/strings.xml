@@ -12,6 +12,7 @@
 
     <string name="line_by_line">Код выводится построчно.</string>
     <string name="char_by_char">Код выводится познаково.</string>
+    <string name="serialized">Строка с настройками.</string>
 
     <string name="lps">лин/сек</string>
     <string name="cps">зн/сек</string>
