@@ -48,14 +48,23 @@
                 android:id="@+id/cfg_text_size_peeker" android:layout_gravity="center" android:indeterminate="false"/>
     </LinearLayout>
     <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
-                  android:gravity="center" android:id="@+id/linearLayout3">
+                  android:gravity="center" android:id="@+id/linearLayout3" android:visibility="gone">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="@string/serialized" android:paddingRight="5dp"
-                  android:textStyle="bold"/>
+                  android:textStyle="bold" android:singleLine="false"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/seri"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                  android:gravity="center" android:id="@+id/linearLayout4">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/presets" android:paddingRight="5dp" android:textStyle="bold"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:id="@+id/presets"/>
     </LinearLayout>
     <ListView
             android:layout_width="fill_parent"

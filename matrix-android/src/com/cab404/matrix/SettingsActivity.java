@@ -10,6 +10,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 /**
  * @author cab404
  */
@@ -23,11 +28,25 @@ public class SettingsActivity extends Activity {
             speed_peeker, height_peeker, size_peeker;
     ToggleButton
             byline_peeker;
+    SpinnerAdapter adapter;
+
+    public Map<String, String> color_shemas = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Settings.local_resolver = getFilesDir().getAbsolutePath() + "/";
+
+        try {
+            Scanner scanner = new Scanner(getAssets().open("data/color_presets.txt"));
+
+            while (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                color_shemas.put(s.split("\\|", 2)[0], s.split("\\|", 2)[1]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String[] names = getResources().getStringArray(R.array.colors);
 
@@ -129,11 +148,35 @@ public class SettingsActivity extends Activity {
             }
         });
 
+        Spinner spinner = (Spinner) findViewById(R.id.presets);
+        adapter = new ArrayAdapter<Object>(this, R.layout.label, color_shemas.keySet().toArray());
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            boolean ft;
+            @Override public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!ft) {
+                    ft = true;
+                    return;
+                }
+                Settings.deserializeSettings(color_shemas.values().toArray()[i] + "");
+                updateText();
+            }
+            @Override public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinner.setAdapter(adapter);
 
         updateText();
     }
 
     public void updateText() {
+        ListView colors = (ListView) findViewById(R.id.root_list);
+        colors.invalidateViews();
+//        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetInvalidated();
+
         speed_value.setText((Settings.speed * 60) + " "
                 + (Settings.byLine ?
                 getResources().getString(R.string.lps) :
