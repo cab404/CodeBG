@@ -13,6 +13,7 @@
     <string name="line_by_line">Code is added by line at time.</string>
     <string name="char_by_char">Code is added by char at time.</string>
     <string name="serialized">Geeky way to transport settings.</string>
+    <string name="presets">Color schemas.</string>
 
     <string name="lps">lines/sec</string>
     <string name="cps">chars/sec</string>

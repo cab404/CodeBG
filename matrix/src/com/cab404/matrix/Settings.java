@@ -93,10 +93,6 @@ public class Settings {
 
     public static String serializeSettings() {
         StringBuilder builder = new StringBuilder();
-        builder.append(speed).append(',');
-        builder.append(position).append(',');
-        builder.append(byLine).append(',');
-        builder.append(font_size).append(',');
 
         for (Color col : Color.values()) {
             builder.append(col.c.toString().substring(0, 6)).append(',');
@@ -110,14 +106,11 @@ public class Settings {
     public static void deserializeSettings(String settings) {
         List<String> parts = Arrays.asList(settings.split(","));
 
-        speed = Integer.parseInt(parts.get(0));
-        position = Float.parseFloat(parts.get(1));
-        byLine = Boolean.parseBoolean(parts.get(2));
-        font_size = Integer.parseInt(parts.get(3));
-
-        for (int i = 4; i < parts.size(); i++) {
-            Color.values()[i - 4].c = com.badlogic.gdx.graphics.Color.valueOf(parts.get(i));
+        for (int i = 0; i < parts.size(); i++) {
+            Color.values()[i].c = com.badlogic.gdx.graphics.Color.valueOf(parts.get(i));
         }
+
+        Settings.write();
 
     }
 
