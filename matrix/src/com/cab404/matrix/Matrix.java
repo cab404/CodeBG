@@ -3,8 +3,12 @@ package com.cab404.matrix;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
@@ -44,6 +48,12 @@ public class Matrix implements ApplicationListener {
         genFonts();
 
         batch = new SpriteBatch();
+
+        Pixmap px = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        px.setColor(Color.WHITE);
+        px.drawPixel(0, 0);
+
+        bg = new Sprite(new Texture(px));
     }
 
     @Override
@@ -64,17 +74,23 @@ public class Matrix implements ApplicationListener {
         lines_num = h / fontHeight;
     }
 
+    Sprite bg;
     @Override
     public void render() {
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-        Gdx.gl.glClearColor(Settings.Color.bg.c.r, Settings.Color.bg.c.g, Settings.Color.bg.c.b, 1);
+        Gdx.gl.glClearColor(Settings.Color.bg.c.r, Settings.Color.bg.c.g, Settings.Color.bg.c.b, 0.9f);
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         update();
+
+        bg.setColor(Settings.Color.bg.c);
+        bg.setPosition(0, 0);
+        bg.setSize(w, h);
 
         if (temporary_size != Settings.font_size) {
             genFonts();
         }
 
         batch.begin();
+        bg.draw(batch);
         {
             while (lines.size > lines_num * Settings.position) {
                 lines.removeIndex(0);
