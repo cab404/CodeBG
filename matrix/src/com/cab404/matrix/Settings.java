@@ -74,7 +74,7 @@ public class Settings {
     }
 
     enum Color {
-        bg("001200", "Фон"),
+        bg("00120022", "Фон"),
         name("15a61e", "Функции"),
         sign("1ec321", "Знаки"),
         str("1c6d61", "Строки"),
